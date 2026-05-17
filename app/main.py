@@ -27,8 +27,15 @@ def home():
 
 
 
+@app.route("/login", methods=["GET"])
+def login_page():
+    return render_template("login.html")
 
-@app.route("/login", methods=["POST"])
+
+
+
+
+@app.route("/login", methods=["POST"]) 
 def login():
     try:
         username =request.form.get("username")
@@ -48,7 +55,7 @@ def login():
             return{"status": "failed", "message" : " username or  password missing"}, 400
           
     except mysql.connector.Error as db_error:
-        return {"eror": "database error"}, 500
+        return {"error": "database error"}, 500
     except Exception as e:
         return{"error": "Unknown error"}, 400
 
@@ -70,14 +77,13 @@ def add_user():
             return {"status": "success", "message": "user created"}
         else:
             return{"status": "failed", "message": "missing fields"}, 400
-        
-
+         
 
 
     except mysql.connector.Error as db_error:
         return {"error": "database error"}, 500
     except Exception as e:
-        return {"erorr": "Unknown error"}, 400    
+        return {"error": "Unknown error"}, 400    
 
 
 
