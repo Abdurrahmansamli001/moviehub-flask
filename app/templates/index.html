@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MovieHub - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <h1>MovieHub</h1>
-    <p>Welcome</p>
+<body class="home-body">
+    <header class="navbar">
+        <div class="navbar-left">
+            <h2 class="logo">MOVIE-HUB</h2>
+        </div>
+        <div class="navbar-center">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="SEARCH FOR MOVIES">
+                <button class="search-btn">🔍</button>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <a href="/login" class="nav-link">LOGIN</a>
+            <a href="/signup" class="nav-link">SIGN</a>
+        </div>
+    </header>
+
+    <div class="movies-grid">
+        {% for movie in movies %}
+            <div class="movie-item">
+                <div class="movie-poster"></div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination-section">
+        <div class="pagination-dots">
+            {% for i in range(12) %}
+                <span class="dot"></span>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

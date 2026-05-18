@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 import mysql.connector
 from app import config
 
@@ -48,21 +48,28 @@ def login():
             user = cursor.fetchone()
 
             if user : 
-                return{"status": "success", "message": "login successfull"}
+               return redirect("/")  # ← Bunu yaz (login başarılı)
             else:
-                return {"status": "failed", "message": "invalid credentials"}, 401
+                return redirect("/signup")  # ← Bunu yaz (login başarısız)
         else:
-            return{"status": "failed", "message" : " username or  password missing"}, 400
+                return redirect("/signup")  # ← Bunu yaz (eksik veri)
           
     except mysql.connector.Error as db_error:
-        return {"error": "database error"}, 500
+        return redirect("/signup")
     except Exception as e:
-        return{"error": "Unknown error"}, 400
+        return redirect("/signup")
 
 
 
 
-@app.route("/add-user", methods=["POST"] )
+@app.route("/signup", methods=["GET"])
+def signup_page():
+    return render_template("signup.html")
+
+
+
+
+@app.route("/add-user", methods=["GET", "POST"] )
 def add_user():
     try:
         username = request.form.get("username")
@@ -74,16 +81,16 @@ def add_user():
             db.commit()
             
 
-            return {"status": "success", "message": "user created"}
+            return redirect("/")  # ← Bunu yaz (signup başarılı)
         else:
-            return{"status": "failed", "message": "missing fields"}, 400
-         
+            return redirect("/signup")  # ← Bunu yaz (eksik veri)
+
 
 
     except mysql.connector.Error as db_error:
-        return {"error": "database error"}, 500
+        return redirect("/signup")
     except Exception as e:
-        return {"error": "Unknown error"}, 400    
+        return redirect("/signup")    
 
 
 

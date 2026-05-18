@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieHub - Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-body">
+    <div class="auth-container signup-page">
+        <div class="diamond-shape diamond-down">
+            <form method="POST" action="/add-user" class="auth-form">
+                <input type="text" name="username" placeholder="USERNAME" required>
+                <input type="password" name="password" placeholder="PASSWORD" required>
+                <button type="submit" class="auth-btn">SIGNUP</button>
+            </form>
+            <p class="auth-link">Already have account? <a href="/login">Log in</a></p>
+        </div>
+    </div>
+</body>
+</html>
